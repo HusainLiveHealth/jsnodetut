@@ -14,9 +14,25 @@ let products = [
 
 // Define GET API endpoint for retrieving product data
 app.get('/products', (req, res) => {
-  // Send product data as JSON response
-  res.json(products);
-});
+  // Retrieve product ID from query parameters
+  const productId = req.query.id;
+
+  // Check if productId is provided in the query
+  if (productId) {
+    // Find product in products array based on ID
+    const product = products.find(p => p.id === parseInt(productId));
+
+    // Send product data as JSON response
+    if (product) {
+      res.json(product);
+    } else {
+      res.status(404).send('Product not found');
+    }
+  } else {
+    // Send all product data as JSON response
+    res.json(products);
+  }
+})
 
 // Define POST API endpoint for adding a new product
 app.post('/products', (req, res) => {
