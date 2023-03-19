@@ -1,9 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const path = require('path');
 
 // Use body-parser middleware to parse request bodies
 app.use(bodyParser.json());
+
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Declare products array outside of GET and POST API endpoint functions
 let products = [
